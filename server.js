@@ -10,8 +10,10 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+console.log(path.join(__dirname, 'public', 'favicon.ico'));
+console.log(favicon);
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8081,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
     mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
     mongoURLLabel = "";
