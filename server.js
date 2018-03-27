@@ -35,8 +35,8 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
 
   }
 }
-var db = null,
-    dbDetails = new Object();
+var db = null
+var dbDetails = new Object();
 
 var initDb = function(callback) {
   if (mongoURL == null) return;
@@ -65,33 +65,33 @@ app.get('/', function (req, res) {
     initDb(function(err){});
   }
   if (db) {
-    var col = db.collection('counts');
+    // var col = db.collection('counts');
     // Create a document with request IP and current time of request
-    col.insert({ip: req.ip, date: Date.now()});
-    col.count(function(err, count){
-      if (err) {
-        console.log('Error running count. Message:\n'+err);
-      }
-      res.render('index.html', { pageCountMessage : count, dbInfo: dbDetails });
-    });
+    // col.insert({ip: req.ip, date: Date.now()});
+    // col.count(function(err, count){
+    //   if (err) {
+    //     console.log('Error running count. Message:\n'+err);
+    //   }
+    //   res.render('index.html');
+    // });
   } else {
-    res.render('index.html', { pageCountMessage : null});
+    res.render('index.html');
   }
 });
 
-app.get('/pagecount', function (req, res) {
-  // try to initialize the db on every request if it's not already initialized.
-  if (!db) {
-    initDb(function(err){});
-  }
-  if (db) {
-    db.collection('counts').count(function(err, count ){
-      res.send('{ pageCount: ' + count + '}');
-    });
-  } else {
-    res.send('{ pageCount: -1 }');
-  }
-});
+// app.get('/pagecount', function (req, res) {
+//   // try to initialize the db on every request if it's not already initialized.
+//   if (!db) {
+//     initDb(function(err){});
+//   }
+//   if (db) {
+//     db.collection('counts').count(function(err, count ){
+//       res.send('{ pageCount: ' + count + '}');
+//     });
+//   } else {
+//     res.send('{ pageCount: -1 }');
+//   }
+// });
 
 // error handling
 app.use(function(err, req, res, next){
