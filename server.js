@@ -10,8 +10,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.engine('html', require('ejs').renderFile);
 app.use(morgan('combined'));
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-console.log(path.join(__dirname, 'public', 'favicon.ico'));
-console.log(favicon);
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
     ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
@@ -62,8 +60,7 @@ var initDb = function(callback) {
 };
 
 app.get('/', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
+  // try to initialize the db on every request if it's not already initialized.
   if (!db) {
     initDb(function(err){});
   }
@@ -83,8 +80,7 @@ app.get('/', function (req, res) {
 });
 
 app.get('/pagecount', function (req, res) {
-  // try to initialize the db on every request if it's not already
-  // initialized.
+  // try to initialize the db on every request if it's not already initialized.
   if (!db) {
     initDb(function(err){});
   }
